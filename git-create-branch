@@ -1,0 +1,20 @@
+#!/bin/bash
+source ./.gitbuddyrc
+
+BRANCH_NAME=$1
+
+git checkout -b $BRANCH_NAME
+if [ "$?" -ne 0 ]
+then
+  error "Error: Unable to create new branch \"${BRANCH_NAME}\"."
+  exit 0 
+fi
+git push --set-upstream origin $BRANCH_NAME
+
+if [ "$?" -eq 0 ]
+then
+  success "Succesfully created new \"${BRANCH_NAME}\""
+else
+  error "Error: Unable to set upstream for:  \"${BRANCH_NAME}\"."
+fi
+

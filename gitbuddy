@@ -1,0 +1,23 @@
+#!/bin/bash
+source ./.gitbuddyrc
+
+CMD=$1
+COMMIT_MSG=$2
+BRANCH=$2
+REPO_NAME=$2
+
+if [ "$CMD" == "-A" ] 
+then # run git commit
+  bash ./git-commit-all $COMMIT_MSG
+elif [ "$CMD" == "--amend" ]
+then # run git amend 
+  bash ./git-commit-amend
+elif [ "$CMD" == "-b" ]
+then # create branch
+  bash ./git-create-branch $BRANCH
+elif [ "$CMD" == "-i" ]
+then # initalize repo
+  bash ./git-initialize-repo $REPO_NAME
+else
+  error "Error: Missing or Invalid Parameters."
+fi

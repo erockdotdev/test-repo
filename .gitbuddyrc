@@ -1,0 +1,22 @@
+#!/bin/bash
+
+GH_USERNAME="erockdotdev"
+
+ERROR='\033[0;31m'
+WARNING='\033[1;33m'
+INFORMATION='\033[0;36m'
+SUCCESS='\033[1;32m'
+NO_COLOR='\033[0m'
+
+function error {
+  echo -e "${ERROR}${1} 💀${NO_COLOR}"
+}
+function warning {
+  echo -e "${WARNING}${1} 😬${NO_COLOR}"
+}
+function info {
+  echo -e "${INFORMATION}${1} 👀${NO_COLOR}"
+}
+function success {
+  echo -e "${SUCCESS}${1} 🚀${NO_COLOR}"
+}

@@ -1,0 +1,101 @@
+#!bin/bash
+source ./.gitbuddyrc
+source ./.gb-env
+
+REPO_NAME=$1
+REPO_URL="${GH_URL}/${REPO_NAME}.git"
+
+
+initialize_repository () {
+  info "Initializing \"${REPO_NAME}\"."
+
+  echo "# ${REPO_NAME}" >> README.md
+  echo "/node_modules\n.DS_STORE\n.env\n" >> .gitignore
+  
+  git init
+  git add -A
+  git commit -m "Initial Commit"
+  git remote add origin $REPO_URL
+  git push -u origin master
+}
+
+test_if_remote_exists(){
+  git ls-remote $REPO_URL
+  echo "$?"
+
+}
+
+test_if_origin_exists(){
+ git remote show origin
+  echo "$?"
+}
+
+HAS_REMOTE=$(test_if_remote_exists)
+
+
+if [ ${HAS_REMOTE} -eq 0 ]
+then 
+  HAS_ORIGIN=$(test_if_origin_exists)
+  if [ ${HAS_ORIGIN} -eq 0 ]
+  then
+    echo "has remote and origin, already initialized"
+  else
+    echo "has remote and no origin, not initialized. GO initialize"
+    initialize_repository
+  fi
+else
+  error "Remote Reposotory \"${REPO_NAME}\" does not exist\nPlease check the spelling of \"${REPO_NAME}\" or visit https://github.com and create repo: \"${REPO_NAME}\""
+fi
+
+# # if [ "$?" -eq 0 ]
+
+# # 1 test if remote exists
+
+# # 2 test if remote is initialized
+
+# # case 1: remote exist and remote is not initialized
+#     # initialize_repository
+# # case 2: remote exist and remote IS initialized
+#     # error Repo is already initialized
+# # case 3: remote does not exist 
+#     # Remote Reposotory `{REMOTE_NAME}` does not exist 
+#     # Please check the spelling of `{REMOTE_NAME}` or visit gh.com to create a new repository and try again
+#     # remove .git and any created files
+
+# # git ls-remote $REPO_URL
+
+
+
+
+
+
+
+
+
+
+
+
+# # # tests if remote exisits
+# # git ls-remote $REPO_URL
+# # if [ "$?" -eq 0 ]
+# # then
+# #   # tests if origin has been initialized
+# #   git remote show origin
+# #   if [ "$?" -ne 0 ] 
+# #     then
+    
+    
+# #     if [ "$?" -eq 0 ]
+# #     then
+# #       success "Succesfully initialized \"${REPO_NAME}\"."
+# #     else
+# #       error "Error: Unable to initialize \"${REPO_NAME}\""
+# #       rm README.md .gitignore
+# #       # rm -rf .git
+# #     fi
+# #   else
+# #     error "Error: \"${REPO_NAME}\" repository not found. Unable to initialize"
+# #   fi  
+# # else
+# #   error "Error: \"${REPO_NAME}\" Origin already initialized"
+# # fi

@@ -1,0 +1,23 @@
+#!/bin/bash
+source ./.gitbuddyrc
+
+COMMIT_MSG=$1
+
+if [ -z "$COMMIT_MSG" ]
+then
+  error "Error: Unable to push to Github. Commit message is required"
+  exit 1
+fi
+
+info "Committing \"${COMMIT_MSG}\" ...."
+
+git add -A
+git commit -m"${COMMIT_MSG}"
+git push
+
+if [ "$?" -eq 0 ]
+then
+  success "Succesfully committed: \"${COMMIT_MSG=$1}\"."
+else
+  error "Error: Can not commit \"${COMMIT_MSG=$1}\""
+fi

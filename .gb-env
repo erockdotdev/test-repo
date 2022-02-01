@@ -1,0 +1,2 @@
+GH_USERNAME="erockdotdev"
+GH_URL="https://github.com/${GH_USERNAME}"

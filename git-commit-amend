@@ -1,0 +1,14 @@
+#!/bin/bash
+source ./.gitbuddyrc
+
+info "Amending previous commit..."
+git add -A
+git commit --amend
+git push -f
+
+if [ "$?" -eq 0 ]
+then
+  success "Succesfully exited amend process."
+else
+  error "Error: Unable to amend previous commit."
+fi
